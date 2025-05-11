@@ -97,7 +97,7 @@ ipset firewalld reflector acpid grub-btrfs
 ## Documentation & UI
 ```bash
 pacman -S man-db man-pages texinfo bluez bluez-utils pipewire alsa-utils \
-pipewire-pulse pipewire-jack sof-firmware ttf-firacode-nerd kitty firefox
+pipewire-pulse pipewire-jack sof-firmware ttf-firacode-nerd kitty firefox xdg-user-dirs
 ```
 
 ## Microcode
