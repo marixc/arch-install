@@ -34,7 +34,7 @@ gdisk /dev/sdX
 ```
 
 ## format partition
-``
+```
 mkfs.btrfs /dev/sdX2
 ```
 
