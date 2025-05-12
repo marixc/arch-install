@@ -90,8 +90,8 @@ sudo reflector -c Germany -a 12 --sort rate --save /etc/pacman.d/mirrorlist
 ## Base System Packages
 ```bash
 pacman -Syu base-devel linux linux-headers linux-firmware btrfs-progs grub \
-mtools networkmanager network-manager-applet openssh sudo neovim git iptables-nft \
-ipset firewalld reflector acpid grub-btrfs
+mtools networkmanager network-manager-applet openssh sudo neovim git iptables \
+ipset ufw reflector acpid grub-btrfs
 ```
 
 ## Documentation & UI
@@ -122,7 +122,7 @@ grub-mkconfig -o /boot/grub/grub.cfg
 ```bash
 systemctl enable NetworkManager
 systemctl enable sshd
-systemctl enable firewalld
+systemctl enable ufw
 systemctl enable reflector.timer
 systemctl enable acpid
 systemctl enable fstrim.timer
@@ -144,7 +144,7 @@ makepkg -si
 
 ## Timeshift Snapshots
 ```bash
-yay -S timeshift timeshift-autosnap
+paru -S timeshift timeshift-autosnap
 sudo timeshift --list-devices
 sudo timeshift --create --comments "[2025-05-10] Initial Snapshot" --tags D
 ```
@@ -171,7 +171,7 @@ nvim /etc/systemd/zram-generator.conf.d/zram.conf
 Contents of `zram.conf`:
 ```
 [zram0]
-zram-size = ram * 0.7
+zram-size = ram / 2
 compression-algorithm = zstd
 swap-priority = 100
 fs-type = swap
@@ -193,4 +193,12 @@ sudo pacman -S cosmic
 
 ## Firewall for KDE Connect
 [Allow KDE Connect Through Firewall](https://www.incredigeek.com/home/allow-kde-connect-through-firewall/)
-
+```
+sudo ufw default allow outgoing
+sudo ufw default deny incoming
+sudo ufw limit 22/tcp
+sudo ufw allow 1714:1764/udp
+sudo ufw allow 1714:1764/tcp
+sudo ufw enable
+sudo ufw status numbered
+```
